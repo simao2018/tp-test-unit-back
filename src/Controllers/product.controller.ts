@@ -14,6 +14,8 @@ export class ProductController {
     @Get()
     async getProducts(): Promise<Product[]> {
         const productResponse = await this.productRepository.find();
+        console.log("🚀 ~ getProducts ~ productResponse", productResponse)
+        
         return productResponse;
     }
 
