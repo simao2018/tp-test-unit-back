@@ -14,13 +14,12 @@ export class ProductController {
     @Get()
     async getProducts(): Promise<Product[]> {
         const productResponse = await this.productRepository.find();
-        console.log("🚀 ~ getProducts ~ productResponse", productResponse)
-        
         return productResponse;
     }
 
     @Get('/:id')
     async getProduct(@Param() productId: string) {
+        console.log("🚀 ~ getProduct ~ productId", productId)
         const response = await this.productRepository.findOneOrFail(productId);
         return response;
     }
@@ -30,8 +29,10 @@ export class ProductController {
         const response = await this.productRepository.save(product);
     }
 
-    @Delete()
+    @Delete('/:id')
     async delete(@Param() productId: string) {
+        console.log("🚀 ~ delete ~ productId", productId);
         const response = await this.productRepository.delete(productId);
+        return response;
     }
 }

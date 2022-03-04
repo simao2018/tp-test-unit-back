@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "./base.entity";
 import { Panier } from "./panier.entity";
+import { PanierProduit } from "./panier_produit.entity";
 
 @Entity({ name: 'product' })
 export class Product extends BaseEntity {
@@ -16,6 +17,6 @@ export class Product extends BaseEntity {
     @Column('varchar', { name: 'imageUrl', nullable: false })
     imageUrl?: string;
 
-    @ManyToOne(() => Panier, panier => panier.produits, { onDelete: 'CASCADE' })
-    panier?: Panier;
+    @Column('varchar', { name: 'panierId', nullable: true })
+    panierId?: string;
 }

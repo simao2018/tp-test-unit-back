@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './db-config/database.module';
 import { Product } from './entities/produit.entity';
+import { PanierModule } from './Modules/panier.module';
 import { ProductModule, productProviders } from './Modules/product.module';
 
 @Module({
@@ -16,6 +17,7 @@ import { ProductModule, productProviders } from './Modules/product.module';
       })
     }),
     ProductModule,
+    PanierModule,
     DatabaseModule,
   ],
   controllers: [AppController],
@@ -33,7 +35,6 @@ export class AppModule {
     @Inject('PRODUCT_REPOSITORY')
     private productRespository: Repository<Product>
   ) {
-    console.log('init db');
     //this.loadDataAndAddFromApi();
   }
 
