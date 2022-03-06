@@ -21,7 +21,17 @@ import { ProductModule } from './Modules/product.module';
     }),
     ProductModule,
     PanierModule,
-    DatabaseModule,
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'tp_test_unit',
+      entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+      synchronize: true,
+      keepConnectionAlive: true,
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
     })

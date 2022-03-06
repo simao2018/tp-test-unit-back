@@ -3,18 +3,14 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { join } from "path";
 import { getConnectionOptions } from "typeorm";
+import { PanierModule } from "../Modules/panier.module";
+import { ProductModule } from "../Modules/product.module";
 import { DatabaseService } from "./database.service";
 
 @Module({
     imports: [
-        /* TypeOrmModule.forRootAsync({
-            useFactory: async () =>
-                Object.assign(await getConnectionOptions(), {
-                    autoLoadEntities: true,
-                }),
-            inject: [ConfigService],
-            imports: [ConfigModule]
-        }) */
+        ProductModule,
+        PanierModule,
         TypeOrmModule.forRoot({
             type: 'mysql',
             host: 'localhost',
