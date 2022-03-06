@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany } from "typeorm";
-import { BaseEntity } from "./base.entity";
+import { BaseEntity } from "./base-entity";
 import { Panier } from "./panier.entity";
 import { PanierProduit } from "./panier_produit.entity";
 
@@ -16,7 +16,4 @@ export class Product extends BaseEntity {
 
     @Column('varchar', { name: 'imageUrl', nullable: false })
     imageUrl?: string;
-
-    @Column('varchar', { name: 'panierId', nullable: true })
-    panierId?: string;
 }

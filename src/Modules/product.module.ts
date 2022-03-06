@@ -1,28 +1,21 @@
 import { Inject, Module } from "@nestjs/common";
-import { Connection, Repository } from "typeorm";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 import { ProductController } from "../Controllers/product.controller";
-import { DatabaseModule } from "../db-config/database.module";
+import { ProductService } from "../Controllers/product.service";
 import { Product } from "../entities/produit.entity";
 
-export const productProviders = [
-    {
-        provide: 'PRODUCT_REPOSITORY',
-        useFactory: (connection: Connection) => connection.getRepository(Product),
-        inject: ['DATABASE_CONNECTION'],
-    }
-];
 
 @Module({
     imports: [
-        DatabaseModule,
+        TypeOrmModule.forFeature([Product]),
     ],
     controllers: [ProductController],
-    providers: [
-        ...productProviders
-    ]
+    providers: [ProductService],
+    exports: [ProductService]
 })
 export class ProductModule {
-    constructor(
+    /* constructor(
         @Inject('PRODUCT_REPOSITORY')
         private productRepository: Repository<Product>
     ) {
@@ -62,5 +55,5 @@ export class ProductModule {
             const productAdd: Product[] = await this.productRepository.save(data);
             console.log("🚀 ~ initData ~ productAdd", productAdd)
         }
-    }
+    } */
 }

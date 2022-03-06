@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { BaseEntity } from "./base.entity";
+import { BaseEntity } from "./base-entity";
 import { Panier } from "./panier.entity";
 import { Product } from "./produit.entity";
 
@@ -14,7 +14,7 @@ export class PanierProduit extends BaseEntity {
     @Column('varchar', { name: 'panierId', nullable: true })
     panierId?: string;
 
-    @ManyToOne(() => Product)
+    @ManyToOne(() => Product, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'productId' })
     product?: Product;
 

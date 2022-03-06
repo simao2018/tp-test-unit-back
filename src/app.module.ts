@@ -1,12 +1,15 @@
 import { HttpModule, HttpService } from '@nestjs/axios';
-import { Inject, Module } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ProductService } from './Controllers/product.service';
 import { DatabaseModule } from './db-config/database.module';
 import { Product } from './entities/produit.entity';
 import { PanierModule } from './Modules/panier.module';
-import { ProductModule, productProviders } from './Modules/product.module';
+import { ProductModule } from './Modules/product.module';
 
 @Module({
   imports: [
@@ -19,12 +22,13 @@ import { ProductModule, productProviders } from './Modules/product.module';
     ProductModule,
     PanierModule,
     DatabaseModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    })
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    ...productProviders,
-
   ],
 })
 export class AppModule {
@@ -32,10 +36,9 @@ export class AppModule {
   path: string = 'https://rickandmortyapi.com/api/character/';
   constructor(
     private httpService: HttpService,
-    @Inject('PRODUCT_REPOSITORY')
-    private productRespository: Repository<Product>
+    private productService: ProductService
   ) {
-    //this.loadDataAndAddFromApi();
+    // this.loadDataAndAddFromApi();
   }
 
   private async loadDataAndAddFromApi() {
@@ -53,7 +56,7 @@ export class AppModule {
 
       if (products?.length) {
         for (const p of products) {
-          this.productRespository.save(p);
+          this.productService.createOrUpdate(p);
         }
       }
 

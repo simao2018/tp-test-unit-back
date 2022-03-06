@@ -1,26 +1,21 @@
 import { Inject, Module } from "@nestjs/common";
-import { Connection, Repository } from "typeorm";
+import { TypeOrmModule } from "@nestjs/typeorm";
 import { PanierController } from "../Controllers/panier.controller";
-import { ProductController } from "../Controllers/product.controller";
-import { DatabaseModule } from "../db-config/database.module";
+import { PanierService } from "../Controllers/panier.service";
 import { Panier } from "../entities/panier.entity";
-import { Product } from "../entities/produit.entity";
-
-export const panierProviders = [
-    {
-        provide: 'PANIER_REPOSITORY',
-        useFactory: (connection: Connection) => connection.getRepository(Panier),
-        inject: ['DATABASE_CONNECTION'],
-    }
-];
+import { PanierProduit } from "../entities/panier_produit.entity";
 
 @Module({
     imports: [
-        DatabaseModule,
+        TypeOrmModule.forFeature([
+            Panier,
+            PanierProduit,
+        ])
     ],
     controllers: [PanierController],
-    providers: [
-        ...panierProviders
+    providers: [PanierService],
+    exports: [
+        PanierService,
     ]
 })
 export class PanierModule {

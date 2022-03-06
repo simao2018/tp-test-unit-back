@@ -1,38 +1,33 @@
 import { Body, Controller, Delete, Get, Inject, Param, Post } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { Product } from "../entities/produit.entity";
+import { ProductService } from "./product.service";
 
 @Controller('products')
 export class ProductController {
     constructor(
-        @Inject('PRODUCT_REPOSITORY')
-        private productRepository: Repository<Product>
+        private productService: ProductService
     ) {
 
     }
 
     @Get()
-    async getProducts(): Promise<Product[]> {
-        const productResponse = await this.productRepository.find();
-        return productResponse;
+    getProducts() {
+        return this.productService.getProducts();
     }
 
     @Get('/:id')
     async getProduct(@Param() productId: string) {
-        console.log("🚀 ~ getProduct ~ productId", productId)
-        const response = await this.productRepository.findOneOrFail(productId);
-        return response;
+        return await this.productService.getProduct(productId);
     }
 
     @Post()
     async createOrUpdate(@Body() product: Product) {
-        const response = await this.productRepository.save(product);
+        await this.productService.createOrUpdate(product);
     }
 
     @Delete('/:id')
     async delete(@Param() productId: string) {
-        console.log("🚀 ~ delete ~ productId", productId);
-        const response = await this.productRepository.delete(productId);
-        return response;
+        return await this.productService.delete(productId);
     }
 }

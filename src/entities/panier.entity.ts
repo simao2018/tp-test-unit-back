@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany } from "typeorm";
-import { BaseEntity } from "./base.entity";
+import { BaseEntity } from "./base-entity";
 import { PanierProduit } from "./panier_produit.entity";
 import { Product } from "./produit.entity";
 
