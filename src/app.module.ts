@@ -32,6 +32,7 @@ import { ProductModule } from './Modules/product.module';
       synchronize: true,
       keepConnectionAlive: true,
     }),
+    DatabaseModule,
     ConfigModule.forRoot({
       isGlobal: true,
     })
