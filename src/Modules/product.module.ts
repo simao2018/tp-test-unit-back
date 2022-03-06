@@ -1,6 +1,5 @@
 import { Inject, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
 import { ProductController } from "../Controllers/product.controller";
 import { ProductService } from "../Controllers/product.service";
 import { Product } from "../entities/produit.entity";
