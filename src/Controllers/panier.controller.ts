@@ -17,7 +17,6 @@ export class PanierController {
 
     @Get()
     getPanierActif() {
-        console.log('get load');
         return this.panierService.getPanierActif();
     }
 
