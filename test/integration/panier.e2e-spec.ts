@@ -1,10 +1,10 @@
 import { Test } from "@nestjs/testing";
 import { Connection, Repository } from "typeorm";
 import { AppModule } from "../../src/app.module";
-import { DatabaseService } from "../../src/db-config/database.service";
 import { Panier, PanierStatus } from "../../src/entities/panier.entity";
 import * as request from 'supertest'
 import { INestApplication } from "@nestjs/common";
+import { DatabaseService } from "../../src/db-config/database.module";
 
 const panier = (): Panier => {
     return {

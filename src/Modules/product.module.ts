@@ -14,46 +14,4 @@ import { Product } from "../entities/produit.entity";
     providers: [ProductService],
     exports: [ProductService]
 })
-export class ProductModule {
-    /* constructor(
-        @Inject('PRODUCT_REPOSITORY')
-        private productRepository: Repository<Product>
-    ) {
-        // this.initData();
-    }
-
-    private async initData() {
-        const productResponse = await this.productRepository.find();
-        if (!productResponse.length) {
-            const data: Product[] = [
-                {
-                    title: 'test',
-                    imageUrl: 'testim',
-                    price: 200,
-                    qte: 3,
-                },
-                {
-                    title: 'test2',
-                    imageUrl: 'testim',
-                    price: 200,
-                    qte: 3,
-                },
-                {
-                    title: 'test3',
-                    imageUrl: 'testim',
-                    price: 200,
-                    qte: 3,
-                },
-                {
-                    title: 'test4',
-                    imageUrl: 'testim',
-                    price: 200,
-                    qte: 3,
-                }
-            ];
-
-            const productAdd: Product[] = await this.productRepository.save(data);
-            console.log("🚀 ~ initData ~ productAdd", productAdd)
-        }
-    } */
-}
+export class ProductModule { }

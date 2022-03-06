@@ -1,11 +1,24 @@
-import { Module } from "@nestjs/common";
+import { Injectable, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { TypeOrmModule } from "@nestjs/typeorm";
+import { InjectConnection, TypeOrmModule } from "@nestjs/typeorm";
 import { join } from "path";
-import { getConnectionOptions } from "typeorm";
+import { Connection, getConnectionOptions } from "typeorm";
 import { PanierModule } from "../Modules/panier.module";
 import { ProductModule } from "../Modules/product.module";
-import { DatabaseService } from "./database.service";
+
+
+@Injectable()
+export class DatabaseService {
+    constructor(
+        @InjectConnection() private readonly connection: Connection
+    ) {
+
+    }
+
+    getDbHandle(): Connection {
+        return this.connection;
+    }
+}
 
 @Module({
     imports: [
@@ -27,4 +40,6 @@ import { DatabaseService } from "./database.service";
     exports: [DatabaseService],
 })
 
-export class DatabaseModule { } 
+export class DatabaseModule { }
+
+

@@ -2,7 +2,6 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AppModule } from "../app.module";
 import { DatabaseModule } from "../db-config/database.module";
-import { databaseProviders } from "../db-config/database.provider";
 import { Product } from "../entities/produit.entity";
 import { ProductModule } from "../Modules/product.module";
 import { ProductController } from "./product.controller";

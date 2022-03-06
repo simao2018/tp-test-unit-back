@@ -49,11 +49,14 @@ export class AppModule {
     private httpService: HttpService,
     private productService: ProductService
   ) {
-    // this.loadDataAndAddFromApi();
+    this.loadDataAndAddFromApi();
   }
 
   private async loadDataAndAddFromApi() {
-    const apiProduct = this.httpService.get(this.path).subscribe(x => {
+    const productResponse = await this.productService.getProducts();
+    if (productResponse?.length)
+      return;
+    this.httpService.get(this.path).subscribe(x => {
       console.log("🚀 ~ apiProduct ~ x", x.data.results);
 
       const products: Product[] = (x.data?.results as any[]).map(y => {
